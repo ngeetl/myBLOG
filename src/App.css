@@ -1,6 +1,6 @@
 /* Reset */
 * {box-sizing: border-box; font-family: 'Red Hat Display', sans-serif; font-weight: 300;}
-body, h1 {margin: 0; padding: 0;}
+body, h1, h2 {margin: 0; padding: 0;}
 a {text-decoration: none; color: black;}
 .container {margin: 40px 60px;} 
 .button {border: none; border-radius: 3px; background-color: rgb(124, 164, 239); color: white; }
@@ -39,7 +39,7 @@ input:focus, textarea:focus {
 .post_button_wrap .post_button {padding: 9px 16px; margin-top: 13px;
   font-weight: 400; color: aliceblue; font-size: 18px;}
 
-/* blog */
+/* Blog */
 .card_header {display: flex; width: 1000px; justify-content: space-between; 
   align-items: center; margin: 20px auto; padding-right: 10px;}
 .card_header a {color:rgb(171, 189, 208); font-size: 40px;}
@@ -48,6 +48,12 @@ input:focus, textarea:focus {
   justify-content: space-between; align-items: center; cursor: pointer;}
 .card_wrap .card_button {height: 32px; width: 60px; background-color: rgb(207, 74, 74);}
 .card_wrap .card_button:hover {background-color: rgb(143, 38, 38);}
+small {color:rgb(171, 189, 208);}
+
+/* ShowPost */
+.showpost {width: 1000px;}
+.showpost_header {border-bottom: 1px solid rgb(220, 211, 212); padding-bottom: 10px;}
+.showpost_body {padding: 30px 6px;}
 
 /* Loading Spinner */
 .spinner {border-radius: 50%; border: 12px silver solid; border-top-color: transparent; width: 90px; height: 90px;

@@ -3,11 +3,20 @@ import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Edit from './pages/Edit';
 import ShowPost from './pages/ShowPost';
+import My from './pages/My';
 
 export default [
   {
     path: "/",
     component: <Home/>
+  },
+  {
+    path: "/board",
+    component: <Board/>
+  },
+  {
+    path: "/my",
+    component: <My/>
   },
   {
     path: "/blog",
@@ -18,11 +27,7 @@ export default [
     component: <ShowPost/>
   },
   {
-    path: "/board",
-    component: <Board/>
-  },
-  {
-    path: "/edit",
+    path: "/blog/:id/edit",
     component: <Edit/>
   },
 ]

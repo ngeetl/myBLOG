@@ -26,7 +26,8 @@ const Post = () => {
         } else if((title.length > 1) && (body.length > 1)) {
             axios.post('http://localhost:3001/posts', {
                 title: title,
-                body: body
+                body: body,
+                createAt: Date.now()
             });
             navigate('/blog');
         }

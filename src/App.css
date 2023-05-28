@@ -4,6 +4,8 @@ body, h1, h2 {margin: 0; padding: 0;}
 a {text-decoration: none; color: black;}
 .container {margin: 40px 60px;} 
 .button {border: none; border-radius: 3px; background-color: rgb(124, 164, 239); color: white; }
+.button:disabled {background-color: rgb(161, 183, 223);}
+.button:disabled:hover {background-color: rgb(161, 183, 223);}
 .button:hover {background-color: rgb(49, 94, 175);}
 .center {width: 1000px; margin: auto;}
 
@@ -52,7 +54,9 @@ small {color:rgb(171, 189, 208);}
 
 /* ShowPost */
 .showpost {width: 1000px;}
-.showpost_header {border-bottom: 1px solid rgb(220, 211, 212); padding-bottom: 10px;}
+.showpost_header {position: relative; border-bottom: 1px solid rgb(220, 211, 212); padding-bottom: 10px;}
+.showpost_header .edit_button {position: absolute; right: 2px; color:rgb(120, 135, 151);
+  cursor: pointer;}
 .showpost_body {padding: 30px 6px;}
 
 /* Loading Spinner */

@@ -3,10 +3,14 @@
 body, h1, h2 {margin: 0; padding: 0;}
 a {text-decoration: none; color: black;}
 .container {margin: 40px 60px;} 
-.button {border: none; border-radius: 3px; background-color: rgb(124, 164, 239); color: white; }
+.button {border: none; border-radius: 3px; background-color: rgb(124, 164, 239); color: white;}
 .button:disabled {background-color: rgb(161, 183, 223);}
 .button:disabled:hover {background-color: rgb(161, 183, 223);}
 .button:hover {background-color: rgb(49, 94, 175);}
+.cancel_button {padding: 9px 16px; margin-top: 13px; margin-left: 7px;
+  font-weight: 400; background-color: rgb(207, 74, 74); font-size: 16px;}
+.cancel_button:hover {background-color: rgb(143, 38, 38);}
+
 .center {width: 1000px; margin: auto;}
 
 /* Layout */
@@ -39,18 +43,18 @@ input:focus, textarea:focus {
 }
 .post_button_wrap {text-align: end;}
 .post_button_wrap .post_button {padding: 9px 16px; margin-top: 13px;
-  font-weight: 400; color: aliceblue; font-size: 18px;}
+  font-weight: 400; color: aliceblue; font-size: 14px;}
 
-/* Blog */
+/* Blog(Post) */
 .card_header {display: flex; width: 1000px; justify-content: space-between; 
   align-items: center; margin: 20px auto; padding-right: 10px;}
 .card_header a {color:rgb(171, 189, 208); font-size: 40px;}
 .card_wrap {border: 2px solid rgb(220, 211, 212); border-radius: 5px; width: 1000px;
   margin: 30px auto; padding: 20px; display: flex; flex-direction: row;
   justify-content: space-between; align-items: center; cursor: pointer;}
-.card_wrap .card_button {height: 32px; width: 60px; background-color: rgb(207, 74, 74);}
-.card_wrap .card_button:hover {background-color: rgb(143, 38, 38);}
+.card_wrap .card_button {height: 32px; width: 60px; background-color: rgb(207, 74, 74); cursor: pointer;}
 small {color:rgb(171, 189, 208);}
+.publish_wrap {margin-top: 12px;}
 
 /* ShowPost */
 .showpost {width: 1000px;}

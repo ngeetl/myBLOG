@@ -11,9 +11,7 @@ const Edit = () => {
     const [editTitle, setEditTitle] = useState('');
     const [editBody, setEditBody] = useState('');
     const [loading, setLoading] = useState(true);
-
-
-
+    const [publish, setPublish] = useState(false);
 
     const onChangeTitle = (e) => setEditTitle(e.target.value);
     const onChangeBody = (e) => setEditBody(e.target.value);
@@ -32,9 +30,10 @@ const Edit = () => {
         } else if(body.length === 0) {
             alert('본문 내용을 입력하세요');
         } else if((title.length > 1) && (body.length > 1)) {
-            axios.put(`http://localhost:3001/posts/${id}`, {
+            axios.patch(`http://localhost:3001/posts/${id}`, {
                 title: editTitle,
                 body: editBody,
+                publish: publish,
                 newCreateAt: Date.now(),
             });
             navigate('/blog');
@@ -82,18 +81,33 @@ const Edit = () => {
     const buttonAble = () => {
         return title === editTitle && body === editBody
     }
-    console.log(buttonAble())
+
+    const onChangePublish = () => {
+        publish ? setPublish(false) : setPublish(true);
+    }
 
     return (
         <form className='center'> 
             <h3>Edit Page</h3>
             {renderEdit()}
+            <div className='publish_wrap'>
+                <input 
+                    type='checkbox'
+                    checked={publish}
+                    onChange={onChangePublish}/>
+                <labe>Publish</labe>
+            </div>
             <div className='post_button_wrap'>
                 <button 
                     className="post_button button" 
                     onClick={submit}
                     disabled={buttonAble()}>
                     Edit
+                </button>
+                <button 
+                    className="cancel_button button" 
+                    onClick={()=>navigate(`/blog/${id}`)}>
+                    Cancel
                 </button>
                 </div>
         </form>

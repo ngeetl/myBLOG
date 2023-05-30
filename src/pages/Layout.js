@@ -13,7 +13,7 @@ const Layout = () => {
         <div className='nav'>
           <div><NavLink style={activeStyle} to="/blog">BLOG</NavLink></div>
           <div><NavLink style={activeStyle} to="/board">BOARD</NavLink></div>
-          <div><NavLink style={activeStyle} to="/my">MY</NavLink></div>
+          <div><NavLink style={activeStyle} to="/admin">MY</NavLink></div>
         </div>
       </div>
   )

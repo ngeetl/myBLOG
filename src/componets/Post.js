@@ -3,8 +3,10 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Post = () => {
+    const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
+    const [publish, setPublish] = useState(false);
 
     const onChangeTitle = e => setTitle(e.target.value);
     const onChangeBody = e => setBody(e.target.value);
@@ -13,8 +15,6 @@ const Post = () => {
             submit(e);
         }
     }
-
-    const navigate = useNavigate();
 
     const submit = (e) => {
         e.preventDefault();
@@ -27,11 +27,15 @@ const Post = () => {
             axios.post('http://localhost:3001/posts', {
                 title: title,
                 body: body,
+                publish: publish,
                 createAt: Date.now()
             });
             navigate('/blog');
         }
     }
+    const onChangePublish = () => {
+        publish ? setPublish(false) : setPublish(true);
+    };
 
     return (
         <form className='center'> 
@@ -55,7 +59,25 @@ const Post = () => {
                     type="text"
                 />
             </div>
-            <div className='post_button_wrap'><button className="post_button button" onClick={submit}>POST</button></div>
+            <div className='publish_wrap'>
+                <input 
+                    type='checkbox'
+                    checked={publish}
+                    onChange={onChangePublish}/>
+                <labe>Publish</labe>
+            </div>
+            <div className='post_button_wrap'>
+                <button 
+                    className="post_button button" 
+                    onClick={submit}>
+                    POST
+                </button>
+                <button 
+                    className="cancel_button button" 
+                    onClick={()=>navigate(`/blog`)}>
+                    Cancel
+                </button>
+            </div>
         </form>
     )
 }

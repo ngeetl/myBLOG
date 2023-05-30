@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Edit from './pages/Edit';
 import ShowPost from './pages/ShowPost';
-import My from './pages/My';
+import Admin from './pages/Admin';
 
 export default [
   {
@@ -15,8 +15,8 @@ export default [
     component: <Board/>
   },
   {
-    path: "/my",
-    component: <My/>
+    path: "/admin",
+    component: <Admin/>
   },
   {
     path: "/blog",

@@ -9,12 +9,26 @@ const CardList = ({ isAdmin }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/posts')
+        let params = {
+          _page: 1,
+          _limit: 5,
+          _sort: 'id',
+          _order: 'desc',
+        }
+        if(!isAdmin) {
+          params = {
+            ...params,
+            publish: true
+          }
+        }
+        axios.get('http://localhost:3001/posts', {
+          params: params
+        })
         .then(res => {
         setPosts(res.data);
         setLoading(false);
         })
-    }, []);
+    }, [isAdmin]);
 
     const navigate = useNavigate();
     
@@ -41,7 +55,7 @@ const CardList = ({ isAdmin }) => {
             <div className='center'>나만의 블로그를 작성해 보세요!</div>
           )
         }
-        return posts.filter(post => isAdmin || post.publish).map(post => {
+        return posts.map(post => {
             return(
               <Card post={post} key={post.id} editHandler={() => editHandler(post.id)}>
                 {isAdmin ? (

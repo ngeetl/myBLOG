@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Post = () => {
     const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Post = () => {
                 publish: publish,
                 createAt: Date.now()
             });
-            navigate('/blog');
+            navigate('/admin');
         }
     }
     const onChangePublish = () => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import CardList from '../componets/CardList';
 import { Link } from 'react-router-dom';
+import Pagination from '../componets/Pagination';
 
 const Admin = () => {
 
@@ -10,7 +11,8 @@ const Admin = () => {
             <h2>Blog List</h2>
             <Link to="/board">+</Link>
           </div>
-          <CardList isAdmin={true}/>  
+          <CardList isAdmin={true}/> 
+          <Pagination /> 
         </div>
       )
 }

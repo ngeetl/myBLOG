@@ -52,6 +52,27 @@
       "createAt": 1685442582043,
       "id": 18,
       "newCreateAt": 1685442599794
+    },
+    {
+      "title": "pagination에 기능을 추가하겠습니다.",
+      "body": "JSON server의 query string으로요!\n",
+      "publish": false,
+      "createAt": 1686032881146,
+      "id": 19
+    },
+    {
+      "title": "GET/ posts?_sort=id&_order=desc",
+      "body": "id를 내림차순으로 정리하여 보여줍니다.",
+      "publish": true,
+      "createAt": 1686033154769,
+      "id": 20
+    },
+    {
+      "title": "publish true",
+      "body": "게시글",
+      "publish": true,
+      "createAt": 1686034374617,
+      "id": 21
     }
   ],
   "comments": [],

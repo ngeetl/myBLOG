@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 const Layout = () => {
-  const activeStyle = ({isActive}) => {
+  const activeStyle = ({ isActive }) => {
     return {
       color: isActive ? "rgb(255, 225, 76)" : "rgb(222, 232, 246)"
     }

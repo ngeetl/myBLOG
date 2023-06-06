@@ -26,11 +26,11 @@ ul {list-style: none; padding: 0;}
 .pagination {display: inline-flex; justify-content: center; border: 1px solid rgb(177, 173, 173);
   border-radius: 3px; margin: auto;}
 .pagination li {padding: 5px 10px; min-width: 50px; text-align: center;
-  transition: all .4s; cursor: pointer;}
-.pagination li a {color:rgb(47, 145, 211); font-weight: 500;}
+  transition: all .25s; cursor: pointer; color:rgb(47, 145, 211); font-weight: 500;}
+.pagination li.active {background-color: rgb(47, 145, 211); color: white;}
+.pagination li.active:hover {background-color: rgb(47, 145, 211); color: white; box-shadow: none;}
 .pagination li:not(:last-child) {border-right: 1px solid rgb(177, 173, 173);}
-.pagination li:hover {box-shadow: inset 0 0 9px 16px rgba(210, 210, 210, 0.337);}
-.pagination li:hover a {color: grey;}
+.pagination li:hover {color: grey; box-shadow: inset 0 0 9px 16px rgba(210, 210, 210, 0.337);}
 
 /* Board - Edit */
 .post_form {margin: 50px;}

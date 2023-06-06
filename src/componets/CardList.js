@@ -3,46 +3,75 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Card from '../componets/Card';
 import LoadingSpinner from '../componets/LoadingSpinner';
+import Pagination from './Pagination';
 
 const CardList = ({ isAdmin }) => {
     const [posts, setPosts] = useState([]);
+    const [totalPage, setTotalPage]= useState(1);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    let limit = 5;
 
-    useEffect(() => {
-        let params = {
-          _page: 1,
-          _limit: 5,
-          _sort: 'id',
-          _order: 'desc',
-        }
-        if(!isAdmin) {
-          params = {
-            ...params,
+    const getTotalPages = () => {
+      if(!isAdmin) {
+        axios.get('http://localhost:3001/posts', {
+          params: {
             publish: true
           }
-        }
-        axios.get('http://localhost:3001/posts', {
-          params: params
         })
-        .then(res => {
+          .then(res => {
+            setTotalPage(() => Math.ceil(res.data.length / limit))
+          })
+      } else {
+        axios.get('http://localhost:3001/posts')
+          .then(res => {
+            setTotalPage(() => Math.ceil(res.data.length / limit))
+          })
+      }
+    }
+
+    const getPosts = (page = 1) => {
+      setCurrentPage(page);
+
+      let params = {
+        _page: page,
+        _limit: 5,
+        _sort: 'id',
+        _order: 'desc',
+      }
+      if(!isAdmin) {
+        params = {
+          ...params,
+          publish: true
+        }
+      }
+      axios.get('http://localhost:3001/posts', {
+        params: params
+      })
+      .then(res => {
         setPosts(res.data);
         setLoading(false);
-        })
-    }, [isAdmin]);
-
+      })
+    }
+    
+    useEffect(() => {
+      getTotalPages();
+      getPosts();
+    } ,[isAdmin, totalPage]);
+    
     const navigate = useNavigate();
     
     const editHandler = (id) => {
-        navigate(`/blog/${id}`);
+      navigate(`/blog/${id}`);
     }
     const deleteHandler = (e, id) => {
-        e.stopPropagation();
-        axios.delete(`http://localhost:3001/posts/${id}`)
-        .then(() => {
-            setPosts((prevposts) => {
-            return prevposts.filter(post => post.id !== id)
-            })
+      e.stopPropagation();
+      axios.delete(`http://localhost:3001/posts/${id}`)
+      .then(() => {
+        setPosts((prevposts) => {
+          return prevposts.filter(post => post.id !== id)
         })
+      })
     } 
 
     const renderList = () => {
@@ -69,7 +98,12 @@ const CardList = ({ isAdmin }) => {
           })
         }
 
-    return renderList();
+    return (
+      <>
+        {renderList()}
+        <Pagination totalPage={totalPage} getPosts={getPosts} currentPage={currentPage}/>
+      </>
+    )
 }
 
 export default CardList

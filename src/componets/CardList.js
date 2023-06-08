@@ -10,32 +10,15 @@ const CardList = ({ isAdmin }) => {
     const [totalPage, setTotalPage]= useState(1);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    let limit = 5;
+    let limit = 1;
 
-    const getTotalPages = () => {
-      if(!isAdmin) {
-        axios.get('http://localhost:3001/posts', {
-          params: {
-            publish: true
-          }
-        })
-          .then(res => {
-            setTotalPage(() => Math.ceil(res.data.length / limit))
-          })
-      } else {
-        axios.get('http://localhost:3001/posts')
-          .then(res => {
-            setTotalPage(() => Math.ceil(res.data.length / limit))
-          })
-      }
-    }
-
+    // post 불러오기 (GET)
     const getPosts = (page = 1) => {
       setCurrentPage(page);
 
       let params = {
         _page: page,
-        _limit: 5,
+        _limit: limit,
         _sort: 'id',
         _order: 'desc',
       }
@@ -51,14 +34,12 @@ const CardList = ({ isAdmin }) => {
       .then(res => {
         setPosts(res.data);
         setLoading(false);
+        setTotalPage(Math.ceil(res.headers['x-total-count']/limit));
       })
     }
-    
-    useEffect(() => {
-      getTotalPages();
-      getPosts();
-    } ,[isAdmin, totalPage]);
-    
+  
+    useEffect(getPosts, [isAdmin, totalPage, limit]);
+    // post 수정
     const navigate = useNavigate();
     
     const editHandler = (id) => {
@@ -74,6 +55,7 @@ const CardList = ({ isAdmin }) => {
       })
     } 
 
+    // post Card rendering
     const renderList = () => {
         if(loading) {
           return (
@@ -97,11 +79,11 @@ const CardList = ({ isAdmin }) => {
             )
           })
         }
-
+        // useEffect(renderList ,[posts, isAdmin, loading])
     return (
       <>
         {renderList()}
-        <Pagination totalPage={totalPage} getPosts={getPosts} currentPage={currentPage}/>
+        {totalPage > 1 && <Pagination totalPage={totalPage} getPosts={getPosts} currentPage={currentPage}/>}
       </>
     )
 }

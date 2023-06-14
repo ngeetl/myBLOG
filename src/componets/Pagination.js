@@ -7,11 +7,13 @@ const Pagination = ({ totalPage, getPosts, currentPage }) => {
   const lastSet = Math.ceil(totalPage / pageLimit); 
   const pageForSet = currentSet === lastSet ? totalPage % pageLimit : pageLimit;
   const pages = Array(pageForSet).fill(startPage).map((val, idx) => val + idx);
+
+  console.log(totalPage);
   return (
     <>
       <nav className='pagination_wrap center'>
         <ul className='pagination'>
-          <li onClick={() => startPage !== 1 && getPosts(startPage - pageLimit)}><a>Previous</a></li>
+          <li onClick={() => currentPage !== 1 && getPosts(currentPage - 1)}><a>Previous</a></li>
           {pages.map(page => {
             return <li 
               onClick={() => getPosts(page)} 
@@ -20,7 +22,7 @@ const Pagination = ({ totalPage, getPosts, currentPage }) => {
                 {page}
               </li>
           })}
-          <li onClick={() => currentSet !== lastSet && getPosts(startPage + pageLimit)}><a>Next</a></li>
+          <li onClick={() => currentPage !== totalPage && getPosts(currentPage + 1)}><a>Next</a></li>
         </ul>
       </nav>
     </>

@@ -10,7 +10,8 @@ const CardList = ({ isAdmin }) => {
     const [totalPage, setTotalPage]= useState(1);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    let limit = 1;
+    const [searchText, setSearchText] = useState('');
+    let limit = 5;
 
     // post 불러오기 (GET)
     const getPosts = (page = 1) => {
@@ -21,6 +22,7 @@ const CardList = ({ isAdmin }) => {
         _limit: limit,
         _sort: 'id',
         _order: 'desc',
+        title_like: searchText,
       }
       if(!isAdmin) {
         params = {
@@ -38,7 +40,8 @@ const CardList = ({ isAdmin }) => {
       })
     }
   
-    useEffect(getPosts, [isAdmin, totalPage, limit]);
+    useEffect(getPosts, []);
+
     // post 수정
     const navigate = useNavigate();
     
@@ -79,9 +82,25 @@ const CardList = ({ isAdmin }) => {
             )
           })
         }
-        // useEffect(renderList ,[posts, isAdmin, loading])
+
+    // search API
+    const onSearch = (e) => {
+      if(e.key === 'Enter') {
+        getPosts()
+      }
+    }
+
     return (
       <>
+        <div className='search center'>
+          <input 
+            className='search_bar'
+            type='text'
+            placeholder='search...'
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            onKeyUp={onSearch}/>
+        </div>
         {renderList()}
         {totalPage > 1 && <Pagination totalPage={totalPage} getPosts={getPosts} currentPage={currentPage}/>}
       </>

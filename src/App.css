@@ -66,6 +66,9 @@ input:focus, textarea:focus {
 .card_wrap .card_button {height: 32px; width: 60px; background-color: rgb(207, 74, 74); cursor: pointer;}
 small {color:rgb(171, 189, 208);}
 .publish_wrap {margin-top: 12px;}
+.search {width: 1000px; display: flex; justify-content: end;}
+.search .search_bar {width: 250px; height: 30px; border-radius: 5px; padding: 10px;
+  border: 1px solid rgb(220, 211, 212);}
 
 /* ShowPost */
 .showpost {width: 1000px;}

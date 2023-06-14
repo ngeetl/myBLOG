@@ -7,6 +7,8 @@ const Post = () => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [publish, setPublish] = useState(false);
+    const [titleError, setTitleError] = useState(false);
+    const [bodyError, setBodyError] = useState(false);
 
     const onChangeTitle = e => setTitle(e.target.value);
     const onChangeBody = e => setBody(e.target.value);
@@ -16,14 +18,17 @@ const Post = () => {
         }
     }
 
+    const onChangePublish = () => {
+        publish ? setPublish(false) : setPublish(true);
+    };
+    
     const submit = (e) => {
         e.preventDefault();
 
-        if(title.length === 0) {
-            alert('제목을 입력하세요');
-        } else if(body.length === 0) {
-            alert('본문 내용을 입력하세요');
-        } else if((title.length > 1) && (body.length > 1)) {
+        setTitleError(false);
+        setBodyError(false);
+
+        if(validateForm()) {
             axios.post('http://localhost:3001/posts', {
                 title: title,
                 body: body,
@@ -33,9 +38,21 @@ const Post = () => {
             navigate('/admin');
         }
     }
-    const onChangePublish = () => {
-        publish ? setPublish(false) : setPublish(true);
-    };
+    
+    const validateForm = () => {
+        let validated = true;
+
+        if(title === '') {
+            setTitleError(true);
+            validated = false;
+        }
+        if(body === '') {
+            setBodyError(true);
+            validated = false;
+        }
+
+        return validated
+    }
 
     return (
         <form className='center'> 
@@ -47,7 +64,9 @@ const Post = () => {
                     onChange={onChangeTitle}
                     placeholder="제목을 입력하세요"
                     type="text"
+                    style={titleError ? {borderColor: 'red'} : null}
                 />
+                {titleError && <div style={{color: 'red'}}>제목을 입력하지 않았습니다!</div>}
             </div>
             <div className='body_wrap post_wrap'>
                 <label for="body">Body</label>
@@ -57,7 +76,9 @@ const Post = () => {
                     onKeyUp={onKeyUp}
                     placeholder="게시글을 입력하세요"
                     type="text"
+                    style={bodyError ? {borderColor: 'red'} : null}
                 />
+                {bodyError && <div style={{color: 'red'}}>본문 내용을 입력하지 않았습니다!</div>}
             </div>
             <div className='publish_wrap'>
                 <input 

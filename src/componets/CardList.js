@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../componets/Card';
 import LoadingSpinner from '../componets/LoadingSpinner';
 import Pagination from './Pagination';
+import Toast from './Toast';
 
 const CardList = ({ isAdmin }) => {
     const [posts, setPosts] = useState([]);
@@ -12,6 +13,7 @@ const CardList = ({ isAdmin }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchText, setSearchText] = useState('');
     let limit = 5;
+    const [toasts, setToasts] = useState([]);
 
     // post 불러오기 (GET)
     const getPosts = (page = 1) => {
@@ -48,14 +50,30 @@ const CardList = ({ isAdmin }) => {
     const editHandler = (id) => {
       navigate(`/blog/${id}`);
     }
+
+    const addToast = (toast) => {
+      let id = Math.random();
+      const toastWithId = {...toast, id: id};
+      setToasts(prev => [...prev, toastWithId]);
+      toasts.map(toast => {
+        setTimeout(() => removeToast(toast.id), 4000);
+      })
+    }
+
+    const removeToast = (id) => {
+      const toastFilter = toasts.filter(toast => toast.id !== id);
+      setToasts(toastFilter);
+    }
+
     const deleteHandler = (e, id) => {
       e.stopPropagation();
       axios.delete(`http://localhost:3001/posts/${id}`)
-      .then(() => {
-        setPosts((prevposts) => {
-          return prevposts.filter(post => post.id !== id)
-        })
-      })
+        .then(() => {
+          setPosts((prevposts) => {
+            return prevposts.filter(post => post.id !== id)
+          })
+        });
+      addToast({type: "success", message: "메세지가 삭제되었습니다."});
     } 
 
     // post Card rendering
@@ -92,6 +110,7 @@ const CardList = ({ isAdmin }) => {
 
     return (
       <>
+        <Toast toasts={toasts} removeToast={removeToast}/>
         <div className='search center'>
           <input 
             className='search_bar'

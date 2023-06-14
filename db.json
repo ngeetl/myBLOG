@@ -54,35 +54,6 @@
       "createAt": 1686201028612,
       "id": 28,
       "newCreateAt": 1686201292588
-    },
-    {
-      "title": "TEST1",
-      "body": "TEST1",
-      "publish": true,
-      "createAt": 1686213493221,
-      "id": 29
-    },
-    {
-      "title": "TEST2",
-      "body": "TEST2",
-      "publish": true,
-      "createAt": 1686213501691,
-      "id": 30
-    },
-    {
-      "title": "TEST3",
-      "body": "TEST3",
-      "publish": true,
-      "createAt": 1686213510661,
-      "id": 31
-    },
-    {
-      "title": "ㄴㅇㄹㄴㅇㄹㄴㅇㄹ-수정본",
-      "body": "\n\n\n",
-      "publish": false,
-      "createAt": 1686734470341,
-      "id": 32,
-      "newCreateAt": 1686734474325
     }
   ],
   "comments": [],

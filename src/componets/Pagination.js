@@ -8,7 +8,6 @@ const Pagination = ({ totalPage, getPosts, currentPage }) => {
   const pageForSet = currentSet === lastSet ? totalPage % pageLimit : pageLimit;
   const pages = Array(pageForSet).fill(startPage).map((val, idx) => val + idx);
 
-  console.log(totalPage);
   return (
     <>
       <nav className='pagination_wrap center'>

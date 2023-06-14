@@ -12,6 +12,10 @@ ul {list-style: none; padding: 0;}
   font-weight: 400; background-color: rgb(207, 74, 74); font-size: 16px;}
 .cancel_button:hover {background-color: rgb(143, 38, 38);}
 .center {width: 1000px; margin: auto;}
+.toast_wrap {border-radius: 5px; font-weight: 800;
+  width: 290px; padding: 20px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 11px;
+  background-color: rgb(246, 188, 188); border: 1px solid rgb(158, 93, 93); color: rgb(158, 93, 93);
+  transition: 1s;}
 
 /* Layout */
 .nav_bar {background: rgb(37, 107, 204); display: flex; height: 100px; align-items: center;}
@@ -85,3 +89,10 @@ small {color:rgb(171, 189, 208);}
     transform: rotate(360deg);
   }
 }
+
+/* Toast */
+.toasts {position: fixed; bottom: 0; right:0;}
+.toast_suc {background: rgb(211, 237, 223); border: 1px solid rgb(109, 139, 124); color:rgb(109, 139, 124);}
+
+
+/* .toast_wrap .toast {} */

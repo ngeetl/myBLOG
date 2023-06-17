@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Card from '../componets/Card';
@@ -13,7 +13,9 @@ const CardList = ({ isAdmin }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchText, setSearchText] = useState('');
     let limit = 5;
-    const [toasts, setToasts] = useState([]);
+    // const [toasts, setToasts] = useState([]);
+    const toasts = useRef([]);
+    const [toastRerender, setToastRerender] = useState(false);
 
     // post 불러오기 (GET)
     const getPosts = (page = 1) => {
@@ -54,15 +56,16 @@ const CardList = ({ isAdmin }) => {
     const addToast = (toast) => {
       let id = Math.random();
       const toastWithId = {...toast, id: id};
-      setToasts(prev => [...prev, toastWithId]);
-      toasts.map(toast => {
-        setTimeout(() => removeToast(toast.id), 4000);
-      })
+      toasts.current = [...toasts.current, toastWithId];
+      
+      setTimeout(() => removeToast(id), 4000);
     }
 
     const removeToast = (id) => {
-      const toastFilter = toasts.filter(toast => toast.id !== id);
-      setToasts(toastFilter);
+      const toastFilter = toasts.current.filter(toast => toast.id !== id);
+      toasts.current = toastFilter;
+      setToastRerender(prev => !prev);
+      console.log(toasts.current);
     }
 
     const deleteHandler = (e, id) => {
@@ -73,7 +76,7 @@ const CardList = ({ isAdmin }) => {
             return prevposts.filter(post => post.id !== id)
           })
         });
-      addToast({type: "success", message: "메세지가 삭제되었습니다."});
+      addToast({type: "success", message: `${toasts.current.id} 메세지가 삭제되었습니다.`});
     } 
 
     // post Card rendering
@@ -110,7 +113,7 @@ const CardList = ({ isAdmin }) => {
 
     return (
       <>
-        <Toast toasts={toasts} removeToast={removeToast}/>
+        <Toast toasts={toasts.current} removeToast={removeToast}/>
         <div className='search center'>
           <input 
             className='search_bar'

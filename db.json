@@ -39,21 +39,6 @@
       "publish": true,
       "createAt": 1686049766781,
       "id": 26
-    },
-    {
-      "title": "밖에서 시끄러운 소리가 나요",
-      "body": "개빡쳐요",
-      "publish": true,
-      "createAt": 1686148589891,
-      "id": 27
-    },
-    {
-      "title": "Pagination 리스트 개수를 더 쉽게 적용하는 법이 있었다-수정본",
-      "body": "바로  aixos의 응답 스키마 then(res => res.headers[x-total-count])를 이용하면 post의 개수를 집계할 수 있는 것이였다. ㅋ\n",
-      "publish": true,
-      "createAt": 1686201028612,
-      "id": 28,
-      "newCreateAt": 1686201292588
     }
   ],
   "comments": [],

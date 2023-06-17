@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Toast from './Toast';
+import useToast from '../Hooks/toast';
 
 const Post = () => {
     const navigate = useNavigate();
@@ -9,6 +11,7 @@ const Post = () => {
     const [publish, setPublish] = useState(false);
     const [titleError, setTitleError] = useState(false);
     const [bodyError, setBodyError] = useState(false);
+    const [toasts, addToast, removeToast] = useToast();
 
     const onChangeTitle = e => setTitle(e.target.value);
     const onChangeBody = e => setBody(e.target.value);
@@ -35,7 +38,8 @@ const Post = () => {
                 publish: publish,
                 createAt: Date.now()
             });
-            navigate('/admin');
+            // navigate('/admin');
+            addToast({type: "success", message: '포스팅이 완료되었습니다.'});
         }
     }
     
@@ -55,51 +59,54 @@ const Post = () => {
     }
 
     return (
-        <form className='center'> 
-            <h3>New Post</h3>
-            <div className='title_wrap post_wrap'>
-                <label for="title">Title</label>
-                <input id="title" 
-                    value={title} 
-                    onChange={onChangeTitle}
-                    placeholder="제목을 입력하세요"
-                    type="text"
-                    style={titleError ? {borderColor: 'red'} : null}
-                />
-                {titleError && <div style={{color: 'red'}}>제목을 입력하지 않았습니다!</div>}
-            </div>
-            <div className='body_wrap post_wrap'>
-                <label for="body">Body</label>
-                <textarea id="body" 
-                    value={body} 
-                    onChange={onChangeBody}
-                    onKeyUp={onKeyUp}
-                    placeholder="게시글을 입력하세요"
-                    type="text"
-                    style={bodyError ? {borderColor: 'red'} : null}
-                />
-                {bodyError && <div style={{color: 'red'}}>본문 내용을 입력하지 않았습니다!</div>}
-            </div>
-            <div className='publish_wrap'>
-                <input 
-                    type='checkbox'
-                    checked={publish}
-                    onChange={onChangePublish}/>
-                <labe>Publish</labe>
-            </div>
-            <div className='post_button_wrap'>
-                <button 
-                    className="post_button button" 
-                    onClick={submit}>
-                    POST
-                </button>
-                <button 
-                    className="cancel_button button" 
-                    onClick={()=>navigate(`/blog`)}>
-                    Cancel
-                </button>
-            </div>
-        </form>
+        <>
+            <form className='center'> 
+                <h3>New Post</h3>
+                <div className='title_wrap post_wrap'>
+                    <label for="title">Title</label>
+                    <input id="title" 
+                        value={title} 
+                        onChange={onChangeTitle}
+                        placeholder="제목을 입력하세요"
+                        type="text"
+                        style={titleError ? {borderColor: 'red'} : null}
+                    />
+                    {titleError && <div style={{color: 'red'}}>제목을 입력하지 않았습니다!</div>}
+                </div>
+                <div className='body_wrap post_wrap'>
+                    <label for="body">Body</label>
+                    <textarea id="body" 
+                        value={body} 
+                        onChange={onChangeBody}
+                        onKeyUp={onKeyUp}
+                        placeholder="게시글을 입력하세요"
+                        type="text"
+                        style={bodyError ? {borderColor: 'red'} : null}
+                    />
+                    {bodyError && <div style={{color: 'red'}}>본문 내용을 입력하지 않았습니다!</div>}
+                </div>
+                <div className='publish_wrap'>
+                    <input 
+                        type='checkbox'
+                        checked={publish}
+                        onChange={onChangePublish}/>
+                    <labe>Publish</labe>
+                </div>
+                <div className='post_button_wrap'>
+                    <button 
+                        className="post_button button" 
+                        onClick={submit}>
+                        POST
+                    </button>
+                    <button 
+                        className="cancel_button button" 
+                        onClick={()=>navigate(`/blog`)}>
+                        Cancel
+                    </button>
+                </div>
+            </form>
+            <Toast toasts={toasts} removeToast={removeToast}/>
+        </>
     )
 }
 

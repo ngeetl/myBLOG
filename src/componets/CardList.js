@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Card from '../componets/Card';
 import LoadingSpinner from '../componets/LoadingSpinner';
 import Pagination from './Pagination';
 import Toast from './Toast';
+import useToast from '../Hooks/toast';
 
 const CardList = ({ isAdmin }) => {
     const [posts, setPosts] = useState([]);
@@ -13,10 +14,9 @@ const CardList = ({ isAdmin }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchText, setSearchText] = useState('');
     let limit = 5;
-    // const [toasts, setToasts] = useState([]);
-    const toasts = useRef([]);
-    const [toastRerender, setToastRerender] = useState(false);
 
+    const [toasts, addToast, removeToast] = useToast();
+    
     // post 불러오기 (GET)
     const getPosts = (page = 1) => {
       setCurrentPage(page);
@@ -53,21 +53,6 @@ const CardList = ({ isAdmin }) => {
       navigate(`/blog/${id}`);
     }
 
-    const addToast = (toast) => {
-      let id = Math.random();
-      const toastWithId = {...toast, id: id};
-      toasts.current = [...toasts.current, toastWithId];
-      
-      setTimeout(() => removeToast(id), 4000);
-    }
-
-    const removeToast = (id) => {
-      const toastFilter = toasts.current.filter(toast => toast.id !== id);
-      toasts.current = toastFilter;
-      setToastRerender(prev => !prev);
-      console.log(toasts.current);
-    }
-
     const deleteHandler = (e, id) => {
       e.stopPropagation();
       axios.delete(`http://localhost:3001/posts/${id}`)
@@ -76,7 +61,7 @@ const CardList = ({ isAdmin }) => {
             return prevposts.filter(post => post.id !== id)
           })
         });
-      addToast({type: "success", message: `${toasts.current.id} 메세지가 삭제되었습니다.`});
+      addToast({type: "success", message: "메세지가 삭제되었습니다."});
     } 
 
     // post Card rendering
@@ -113,7 +98,7 @@ const CardList = ({ isAdmin }) => {
 
     return (
       <>
-        <Toast toasts={toasts.current} removeToast={removeToast}/>
+        <Toast toasts={toasts} removeToast={removeToast}/>
         <div className='search center'>
           <input 
             className='search_bar'

@@ -6,7 +6,8 @@ const Toast = ({ toasts, removeToast }) => {
       {toasts.map(toast => {
           return (
               <div className={toast.type === "err" ? 'toast_wrap' : 'toast_wrap toast_suc'}
-                   onClick={() => removeToast(toast.id)}>
+                   onClick={() => removeToast(toast.id)}
+                   key={toast.id}>
                   <div className='toast'>
                       {toast.message}
                   </div>

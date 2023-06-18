@@ -37,9 +37,11 @@ const Post = () => {
                 body: body,
                 publish: publish,
                 createAt: Date.now()
+            }).then(() => {
+                // navigate('/admin');
+                addToast({type: "success", message: '포스팅이 완료되었습니다.'});
+                console.log(toasts);
             });
-            // navigate('/admin');
-            addToast({type: "success", message: '포스팅이 완료되었습니다.'});
         }
     }
     
@@ -86,11 +88,12 @@ const Post = () => {
                     {bodyError && <div style={{color: 'red'}}>본문 내용을 입력하지 않았습니다!</div>}
                 </div>
                 <div className='publish_wrap'>
-                    <input 
+                    <input
+                        id='publish' 
                         type='checkbox'
                         checked={publish}
                         onChange={onChangePublish}/>
-                    <labe>Publish</labe>
+                    <label htmlFor='publish'>Publish</label>
                 </div>
                 <div className='post_button_wrap'>
                     <button 

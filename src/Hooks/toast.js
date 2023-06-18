@@ -10,6 +10,7 @@ const useToast = () => {
         const toastWithId = {...toast, id: id};
 
         toasts.current = [...toasts.current, toastWithId];
+        setToastRerender(prev => !prev);
         
         setTimeout(() => removeToast(id), 4000);
     }

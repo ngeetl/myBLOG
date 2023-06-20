@@ -4,11 +4,9 @@ import Post from '../componets/Post'
 
 const Board = () => {
 
-
   return (
     <form className="post_form">
-      <Post/>
-      
+      <Post />
     </form>
   )
 }

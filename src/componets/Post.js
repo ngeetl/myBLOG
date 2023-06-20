@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Toast from './Toast';
 import useToast from '../Hooks/toast';
 
 const Post = () => {
@@ -11,7 +10,7 @@ const Post = () => {
     const [publish, setPublish] = useState(false);
     const [titleError, setTitleError] = useState(false);
     const [bodyError, setBodyError] = useState(false);
-    const [toasts, addToast, removeToast] = useToast();
+    const { addToast } = useToast();
 
     const onChangeTitle = e => setTitle(e.target.value);
     const onChangeBody = e => setBody(e.target.value);
@@ -38,9 +37,8 @@ const Post = () => {
                 publish: publish,
                 createAt: Date.now()
             }).then(() => {
-                // navigate('/admin');
+                navigate('/admin');
                 addToast({type: "success", message: '포스팅이 완료되었습니다.'});
-                console.log(toasts);
             });
         }
     }
@@ -108,7 +106,6 @@ const Post = () => {
                     </button>
                 </div>
             </form>
-            <Toast toasts={toasts} removeToast={removeToast}/>
         </>
     )
 }

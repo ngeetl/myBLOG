@@ -1,29 +1,25 @@
-import React, { useRef, useState } from 'react'
+import { addToast as add, removeToast as remove } from '../store/toastSlice';
+import { useDispatch } from 'react-redux';
 
 
 const useToast = () => {
-    const toasts = useRef([]);
-    const [toastRerender, setToastRerender] = useState(false);
+    const dispatch = useDispatch();
+
+    const removeToast = (id) => {
+        dispatch(remove(id));
+    }
 
     const addToast = (toast) => {
         let id = Math.random();
         const toastWithId = {...toast, id: id};
 
-        toasts.current = [...toasts.current, toastWithId];
-        setToastRerender(prev => !prev);
+        dispatch(add(toastWithId));
         
         setTimeout(() => removeToast(id), 4000);
     }
   
-    const removeToast = (id) => {
-        const toastFilter = toasts.current.filter(toast => toast.id !== id);
-        
-        toasts.current = toastFilter;
 
-        setToastRerender(prev => !prev);
-    }
-
-  return [toasts.current, addToast, removeToast]
+  return { addToast, removeToast }
 }
 
 export default useToast

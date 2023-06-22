@@ -4,6 +4,7 @@ import Blog from './pages/Blog';
 import Edit from './pages/Edit';
 import ShowPost from './pages/ShowPost';
 import Admin from './pages/Admin';
+import NotFoundPage from './pages/NotFoundPage';
 
 export default [
   {
@@ -33,4 +34,8 @@ export default [
     component: <Edit/>,
     auth: true
   },
+  {
+    path: '*',
+    component: <NotFoundPage/>
+  }
 ]

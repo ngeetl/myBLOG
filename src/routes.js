@@ -8,26 +8,29 @@ import Admin from './pages/Admin';
 export default [
   {
     path: "/",
-    component: <Home/>
+    component: <Home/>,
   },
   {
     path: "/board",
-    component: <Board/>
+    component: <Board/>,
+    auth: true
   },
   {
     path: "/admin",
-    component: <Admin/>
+    component: <Admin/>,
+    auth: true
   },
   {
     path: "/blog",
-    component: <Blog/>
+    component: <Blog/>,
   },
   {
     path: "/blog/:id",
-    component: <ShowPost/>
+    component: <ShowPost/>,
   },
   {
     path: "/blog/:id/edit",
-    component: <Edit/>
+    component: <Edit/>,
+    auth: true
   },
 ]

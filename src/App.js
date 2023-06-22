@@ -7,16 +7,23 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate
 } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 function App() {
   const { removeToast } = useToast();
-  const toasts = useSelector((state) => state.toast.toasts)
+  const toasts = useSelector(state => state.toast.toasts);
+  const isLogin = useSelector(state => state.auth.isLogin);
 
   const route = routes.map(route => {
+    if(route.auth) {
+        if(!isLogin) {
+          return <Route key={route.path} path={route.path} element={<Navigate replace to="/" />} />
+        }
+    }
     return (
-      <Route key={route.path} path={route.path} element={route.component} exact />
+      <Route key={route.path} path={route.path} element={route.component} />
     )
   });
 

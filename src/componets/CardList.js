@@ -68,7 +68,7 @@ const CardList = ({ isAdmin }) => {
       e.stopPropagation();
       axios.delete(`http://localhost:3001/posts/${id}`)
         .then(() => {
-          setPosts(prevposts => prevposts.filter(post => post.id !== id));
+          getPosts(1);
           addToast({type: "success", message: "메세지가 삭제되었습니다."});
         }).catch(err => {
           addToast({

@@ -13,6 +13,7 @@ const ShowPost = () => {
   const [errMessage, setErrMessage] = useState('');
   const navigate = useNavigate();
   const isLogin = useSelector(state => state.auth.isLogin);
+  const views = useSelector(state => state.view.views);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/posts/${id}`)
@@ -37,9 +38,12 @@ const ShowPost = () => {
     <div className='container'>
       <div className='showpost center'>
         <div className='showpost_header'>
-          <div><h2>{post.title}</h2></div>
-          <small>{printDate(post.createAt)}</small>
+          <span><h2 style={{display: 'inline-block'}}>{post.title}</h2></span>
           {isLogin && <span className='edit_button' onClick={()=>navigate(`/blog/${id}/edit`)}>Edit</span>}
+          <div className='small_wrap'>
+            <small>{printDate(post.createAt)}</small>
+            <small>{views}</small>
+          </div>
         </div>
         <div className='showpost_body'>{post.body}</div>
       </div>

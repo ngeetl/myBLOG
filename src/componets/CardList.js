@@ -5,8 +5,11 @@ import Card from '../componets/Card';
 import LoadingSpinner from '../componets/LoadingSpinner';
 import Pagination from './Pagination';
 import useToast from '../Hooks/toast';
+import { increase } from '../store/viewSlice';
+import { useDispatch } from 'react-redux';
 
 const CardList = ({ isAdmin }) => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
     const [totalPage, setTotalPage]= useState(1);
@@ -62,6 +65,7 @@ const CardList = ({ isAdmin }) => {
     // post 수정    
     const editHandler = (id) => {
       navigate(`/blog/${id}`);
+      dispatch(increase());
     }
 
     const deleteHandler = (e, id) => {

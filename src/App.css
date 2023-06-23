@@ -82,6 +82,7 @@ small {color:rgb(171, 189, 208);}
 .showpost_header .edit_button {position: absolute; right: 2px; color:rgb(120, 135, 151);
   cursor: pointer;}
 .showpost_body {padding: 30px 6px;}
+.small_wrap {display: flex; justify-content: space-between;}
 
 /* Loading Spinner */
 .spinner {border-radius: 50%; border: 12px silver solid; border-top-color: transparent; width: 90px; height: 90px;
@@ -95,3 +96,11 @@ small {color:rgb(171, 189, 208);}
 /* Toast */
 .toasts {position: fixed; bottom: 0; right:0;}
 .toast_suc {background: rgb(192, 216, 236); border: 1px solid rgb(109, 122, 139); color:rgb(109, 117, 139);}
+
+/* Popular */
+.home_header {text-align: center;}
+.popular_post_wrap {display: flex; flex-wrap: wrap; flex-direction: row;
+  justify-content: center; align-items: center; margin-top: 30px;}
+.popular_post_box {border: 1px solid grey; width: 390px; height: 350px; 
+  margin: 30px; border-radius: 3px;}
+.popular_post {padding: 17px;}

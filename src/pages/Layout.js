@@ -21,7 +21,6 @@ const Layout = () => {
         type: 'success',
         message: "접근이 해제되었습니다."
       })
-
     } else {
       dispatch(login());
       addToast({

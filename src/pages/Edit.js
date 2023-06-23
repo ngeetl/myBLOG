@@ -3,6 +3,7 @@ import { useParams } from 'react-router'
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import LoadingSpinner from '../componets/LoadingSpinner';
+import { addToast } from '../store/toastSlice';
 
 const Edit = () => {
     const { id } = useParams();
@@ -12,6 +13,7 @@ const Edit = () => {
     const [editBody, setEditBody] = useState('');
     const [loading, setLoading] = useState(true);
     const [publish, setPublish] = useState(false);
+    const [errMessage, setErrMessage] = useState('');
 
     const onChangeTitle = (e) => setEditTitle(e.target.value);
     const onChangeBody = (e) => setEditBody(e.target.value);
@@ -35,6 +37,8 @@ const Edit = () => {
                 body: editBody,
                 publish: publish,
                 newCreateAt: Date.now(),
+            }).catch(err => {
+                addToast({type: "err", message: "오류가 발생하였습니다."})
             });
             navigate('/blog');
         }
@@ -46,11 +50,19 @@ const Edit = () => {
                             setTitle(res.data.title + '-수정본');
                             setBody(res.data.body);
                             setLoading(false);
+                        }).catch(err => {
+                            setLoading(false);
+                            setErrMessage("서버로부터 불러오는 것을 실패하였습니다.");
+                            addToast({type: "err", message: "오류가 발생하였습니다."})
                         });
                 setEditTitle(title);
                 setEditBody(body);
             }, [id, title, body]);
             
+    if(errMessage) {
+        return <div className='center'>{errMessage}</div>
+    }
+
     const renderEdit = () => {
         if(loading) {
             return <LoadingSpinner/>

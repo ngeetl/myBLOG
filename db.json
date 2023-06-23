@@ -172,6 +172,13 @@
       "publish": true,
       "createAt": 1687064513628,
       "id": 40
+    },
+    {
+      "title": "axios catch 설정까지 완료!",
+      "body": "꽤 그럴싸한 블로그가 완성되어간다~~~",
+      "publish": true,
+      "createAt": 1687507979000,
+      "id": 41
     }
   ],
   "comments": [],

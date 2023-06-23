@@ -39,6 +39,8 @@ const Post = () => {
             }).then(() => {
                 navigate('/admin');
                 addToast({type: "success", message: '포스팅이 완료되었습니다.'});
+            }).catch(err => {
+                addToast({type: 'err', message: "오류가 발생하였습니다."})
             });
         }
     }

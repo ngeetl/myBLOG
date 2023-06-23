@@ -7,11 +7,13 @@ import Pagination from './Pagination';
 import useToast from '../Hooks/toast';
 
 const CardList = ({ isAdmin }) => {
+    const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
     const [totalPage, setTotalPage]= useState(1);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchText, setSearchText] = useState('');
+    const [errMessage, setErrMessage] = useState('');
     let limit = 5;
     // useRef 변수
     const { addToast } = useToast();
@@ -40,14 +42,24 @@ const CardList = ({ isAdmin }) => {
         setPosts(res.data);
         setLoading(false);
         setTotalPage(Math.ceil(res.headers['x-total-count']/limit));
+      }).catch(err => {
+        setErrMessage('서버로부터 불러오는 것을 실패하였습니다.');
+        addToast({
+          type: 'err',
+          message: "서버 접속 실패"
+        })
+        setLoading(false);
       })
     }
   
     useEffect(getPosts, []);
 
-    // post 수정
-    const navigate = useNavigate();
-    
+    // err 메세지
+    if(errMessage) {
+      return <div className='center'>{errMessage}</div>
+    }
+
+    // post 수정    
     const editHandler = (id) => {
       navigate(`/blog/${id}`);
     }
@@ -58,6 +70,11 @@ const CardList = ({ isAdmin }) => {
         .then(() => {
           setPosts(prevposts => prevposts.filter(post => post.id !== id));
           addToast({type: "success", message: "메세지가 삭제되었습니다."});
+        }).catch(err => {
+          addToast({
+            type: "err",
+            message: "오류가 발생하였습니다."
+          })
         });
     } 
 

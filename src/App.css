@@ -97,10 +97,13 @@ small {color:rgb(171, 189, 208);}
 .toasts {position: fixed; bottom: 0; right:0;}
 .toast_suc {background: rgb(192, 216, 236); border: 1px solid rgb(109, 122, 139); color:rgb(109, 117, 139);}
 
-/* Popular */
-.home_header {text-align: center;}
-.popular_post_wrap {display: flex; flex-wrap: wrap; flex-direction: row;
-  justify-content: center; align-items: center; margin-top: 30px;}
-.popular_post_box {border: 1px solid grey; width: 390px; height: 350px; 
-  margin: 30px; border-radius: 3px;}
-.popular_post {padding: 17px;}
+/* Home */
+.home_header {text-align: center; animation: scaleup 1s forwards; color: rgb(156, 156, 156); font-weight: 500;}
+@keyframes scaleup {
+  100% {
+    transform: scale(1.8);
+  }
+}
+
+/* lottie-files */
+.blogAnimation {width: 600px; margin: auto;}

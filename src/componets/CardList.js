@@ -5,11 +5,8 @@ import Card from '../componets/Card';
 import LoadingSpinner from '../componets/LoadingSpinner';
 import Pagination from './Pagination';
 import useToast from '../Hooks/toast';
-import { increase } from '../store/viewSlice';
-import { useDispatch } from 'react-redux';
 
 const CardList = ({ isAdmin }) => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
     const [totalPage, setTotalPage]= useState(1);
@@ -18,9 +15,9 @@ const CardList = ({ isAdmin }) => {
     const [searchText, setSearchText] = useState('');
     const [errMessage, setErrMessage] = useState('');
     let limit = 5;
-    // useRef 변수
+    // Custom Hooks
     const { addToast } = useToast();
-    
+
     // post 불러오기 (GET)
     const getPosts = (page = 1) => {
       setCurrentPage(page);
@@ -65,7 +62,6 @@ const CardList = ({ isAdmin }) => {
     // post 수정    
     const editHandler = (id) => {
       navigate(`/blog/${id}`);
-      dispatch(increase());
     }
 
     const deleteHandler = (e, id) => {
@@ -95,7 +91,7 @@ const CardList = ({ isAdmin }) => {
         }
         return posts.map(post => {
             return(
-              <Card post={post} key={post.id} editHandler={() => editHandler(post.id)}>
+              <Card post={post} key={post.id} editHandler={() => editHandler(post.id)} views={post.views}>
                 {isAdmin ? (
                     <button 
                         className='card_button button' 

@@ -35,7 +35,7 @@ const Post = () => {
                 title: title,
                 body: body,
                 publish: publish,
-                createAt: Date.now()
+                createAt: Date.now(),
             }).then(() => {
                 navigate('/admin');
                 addToast({type: "success", message: '포스팅이 완료되었습니다.'});

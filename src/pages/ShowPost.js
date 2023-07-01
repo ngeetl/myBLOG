@@ -13,7 +13,6 @@ const ShowPost = () => {
   const [errMessage, setErrMessage] = useState('');
   const navigate = useNavigate();
   const isLogin = useSelector(state => state.auth.isLogin);
-  const views = useSelector(state => state.view.views);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/posts/${id}`)
@@ -25,11 +24,13 @@ const ShowPost = () => {
         addToast({type:'err', message: "서버 접속 실패"})
         setLoading(false);
       });
-  }, [id]);
+    }, [id]);
+
+  
 
   const printDate = (timeStamp) => {
     return new Date(timeStamp).toLocaleString();
-  }
+  }  
 
     if(loading) {
       return <LoadingSpinner/>
@@ -42,7 +43,6 @@ const ShowPost = () => {
           {isLogin && <span className='edit_button' onClick={()=>navigate(`/blog/${id}/edit`)}>Edit</span>}
           <div className='small_wrap'>
             <small>{printDate(post.createAt)}</small>
-            <small>{views}</small>
           </div>
         </div>
         <div className='showpost_body'>{post.body}</div>

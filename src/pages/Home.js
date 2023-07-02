@@ -1,11 +1,11 @@
 import React from 'react'
-import BlogAnimation from '../lottiefiles/BlogAnimation';
+import BlogLottie from '../lottiefiles/BlogLottie';
 
 const Home = () => {
   return (
     <div className='container'>
-      <BlogAnimation />
-      <h2 className='home_header'>Welcome To my blog!</h2>
+      <BlogLottie />
+      <div className='home_header'><h2>Welcome To my blog!</h2></div>
     </div>
   )
 }

@@ -1,9 +1,10 @@
 /* Reset */
 * {box-sizing: border-box; font-family: 'Red Hat Display', sans-serif; font-weight: 300;}
 body, h1, h2 {margin: 0; padding: 0;}
+h2 {font-weight: 400; color: rgb(152, 152, 152);}
 a {text-decoration: none; color: black;}
 ul {list-style: none; padding: 0;}
-.container {margin: 40px 60px;} 
+.container {margin: 50px 60px;} 
 .button {border: none; border-radius: 3px; background-color: rgb(124, 164, 239); color: white;}
 .button:disabled {background-color: rgb(161, 183, 223);}
 .button:disabled:hover {background-color: rgb(161, 183, 223);}
@@ -64,10 +65,10 @@ input:focus, textarea:focus {
 
 /* Blog(Post) */
 .card_header {display: flex; width: 1000px; justify-content: space-between; 
-  align-items: center; margin: 20px auto; padding-right: 10px;}
+  align-items: center; margin: 20px auto; padding-right: 10px;} 
 .card_header a {color:rgb(171, 189, 208); font-size: 40px;}
 .card_wrap {border: 2px solid rgb(220, 211, 212); border-radius: 5px; width: 1000px;
-  margin: 30px auto; padding: 20px; display: flex; flex-direction: row;
+  margin: 37px auto; padding: 20px; display: flex; flex-direction: row;
   justify-content: space-between; align-items: center; cursor: pointer;}
 .card_wrap .card_button {height: 32px; width: 60px; background-color: rgb(207, 74, 74); cursor: pointer;}
 small {color:rgb(171, 189, 208);}
@@ -98,12 +99,14 @@ small {color:rgb(171, 189, 208);}
 .toast_suc {background: rgb(192, 216, 236); border: 1px solid rgb(109, 122, 139); color:rgb(109, 117, 139);}
 
 /* Home */
-.home_header {text-align: center; animation: scaleup 1s forwards; color: rgb(156, 156, 156); font-weight: 500;}
+.home_header {width: 100%;}
+.home_header h2{text-align: center; animation: scaleup 1s forwards; color: rgb(156, 156, 156); font-weight: 300;}
 @keyframes scaleup {
   100% {
-    transform: scale(1.8);
+    transform: scale(1.5);
   }
 }
 
 /* lottie-files */
 .blogAnimation {width: 600px; margin: auto;}
+.blogAnimation div {width: 100%;}

@@ -15,7 +15,7 @@ const ShowPost = () => {
   const isLogin = useSelector(state => state.auth.isLogin);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/posts/${id}`)
+    axios.get(`http://localhost:3100/posts/${id}`)
       .then(res => {
         setPost(res.data);
         setLoading(false);

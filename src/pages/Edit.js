@@ -32,7 +32,7 @@ const Edit = () => {
         } else if(body.length === 0) {
             alert('본문 내용을 입력하세요');
         } else if((title.length > 1) && (body.length > 1)) {
-            axios.patch(`http://localhost:3001/posts/${id}`, {
+            axios.patch(`http://localhost:3100/posts/${id}`, {
                 title: editTitle,
                 body: editBody,
                 publish: publish,
@@ -45,7 +45,7 @@ const Edit = () => {
     }
 
     useEffect(() => {
-                axios.get(`http://localhost:3001/posts/${id}`)
+                axios.get(`http://localhost:3100/posts/${id}`)
                         .then(res => {
                             setTitle(res.data.title + '-수정본');
                             setBody(res.data.body);

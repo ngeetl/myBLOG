@@ -9,47 +9,66 @@ import useToast from '../Hooks/toast';
 const CardList = ({ isAdmin }) => {
     const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
-    const [totalPage, setTotalPage]= useState(1);
+    const [totalPosts, setTotalPosts]= useState(1);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchText, setSearchText] = useState('');
     const [errMessage, setErrMessage] = useState('');
-    let limit = 5;
+ 
     // Custom Hooks
     const { addToast } = useToast();
 
     // post 불러오기 (GET)
+    // const getPosts = (page = 1) => {
+    //   setCurrentPage(page);
+
+    //   let params = {
+    //     _page: page,
+    //     _limit: limit,
+    //     _sort: 'id',
+    //     _order: 'desc',
+    //     title_like: searchText,
+    //   }
+    //   if(!isAdmin) {
+    //     params = {
+    //       ...params,
+    //       publish: true
+    //     }
+    //   }
+    //   axios.get('http://localhost:3100/posts', {
+    //     params: params
+    //   })
+    //   .then(res => {
+    //     setPosts(res.data);
+    //     setLoading(false);
+    //     setTotalPage(Math.ceil(res.headers['x-total-count']/limit));
+    //   }).catch(err => {
+    //     setErrMessage('서버로부터 불러오는 것을 실패하였습니다.');
+    //     addToast({
+    //       type: 'err',
+    //       message: "서버 접속 실패"
+    //     })
+    //     setLoading(false);
+    //   })
+    // }
+
     const getPosts = (page = 1) => {
       setCurrentPage(page);
 
-      let params = {
-        _page: page,
-        _limit: limit,
-        _sort: 'id',
-        _order: 'desc',
-        title_like: searchText,
-      }
-      if(!isAdmin) {
-        params = {
-          ...params,
-          publish: true
-        }
-      }
-      axios.get('http://localhost:3001/posts', {
-        params: params
-      })
-      .then(res => {
-        setPosts(res.data);
-        setLoading(false);
-        setTotalPage(Math.ceil(res.headers['x-total-count']/limit));
-      }).catch(err => {
-        setErrMessage('서버로부터 불러오는 것을 실패하였습니다.');
-        addToast({
-          type: 'err',
-          message: "서버 접속 실패"
+      axios.get(`http://localhost:3100/posts?page=${page}`)
+        .then(res => {
+          const { totalPosts, paginatedPosts } = res.data;
+          setPosts(paginatedPosts);
+          setTotalPosts(totalPosts);
+          setLoading(false);
+        }).catch(err => {
+          setErrMessage('서버로부터 불러오는 것을 실패하였습니다.');
+          addToast({
+            type: 'err',
+            message: '서버 접속 실패'
+          });
+          setLoading(false);
         })
-        setLoading(false);
-      })
     }
   
     useEffect(getPosts, []);
@@ -66,7 +85,7 @@ const CardList = ({ isAdmin }) => {
 
     const deleteHandler = (e, id) => {
       e.stopPropagation();
-      axios.delete(`http://localhost:3001/posts/${id}`)
+      axios.delete(`http://localhost:3100/posts/${id}`)
         .then(() => {
           getPosts(1);
           addToast({type: "success", message: "메세지가 삭제되었습니다."});
@@ -79,7 +98,7 @@ const CardList = ({ isAdmin }) => {
     } 
 
     // post Card rendering
-    const renderList = () => {
+    const renderList = (posts) => {
         if(loading) {
           return (
             <LoadingSpinner/>
@@ -121,8 +140,9 @@ const CardList = ({ isAdmin }) => {
             onChange={(e) => setSearchText(e.target.value)}
             onKeyUp={onSearch}/>
         </div>
-        {renderList()}
-        {totalPage > 1 && <Pagination totalPage={totalPage} getPosts={getPosts} currentPage={currentPage}/>}
+        {renderList(posts)}
+        {/* {totalPage > 1 && <Pagination totalPage={totalPage} getPosts={getPosts} currentPage={currentPage}/>} */}
+        {totalPosts > 0 && <Pagination totalPosts={totalPosts} getPosts={getPosts} currentPage={currentPage} />}
       </>
     )
 }

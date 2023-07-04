@@ -55,12 +55,16 @@ const CardList = ({ isAdmin }) => {
     const getPosts = (page = 1) => {
       setCurrentPage(page);
 
+      
       axios.get(`http://localhost:3100/posts?page=${page}`)
-        .then(res => {
-          const { totalPosts, paginatedPosts } = res.data;
-          setPosts(paginatedPosts);
-          setTotalPosts(totalPosts);
-          setLoading(false);
+      .then(res => {
+        const { totalPosts, paginatedPosts, publishPost } = res.data;
+        setPosts(paginatedPosts);
+        setTotalPosts(totalPosts);
+        setLoading(false);
+        if(!isAdmin) {
+          setPosts(publishPost);
+        }
         }).catch(err => {
           setErrMessage('서버로부터 불러오는 것을 실패하였습니다.');
           addToast({

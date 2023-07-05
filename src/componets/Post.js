@@ -7,7 +7,7 @@ const Post = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
-    const [publish, setPublish] = useState(false);
+    const [publish, setPublish] = useState(true);
     const [titleError, setTitleError] = useState(false);
     const [bodyError, setBodyError] = useState(false);
     const { addToast } = useToast();
@@ -24,26 +24,6 @@ const Post = () => {
         publish ? setPublish(false) : setPublish(true);
     };
     
-    // const submit = (e) => {
-    //     e.preventDefault();
-
-    //     setTitleError(false);
-    //     setBodyError(false);
-
-    //     if(validateForm()) {
-    //         axios.post('http://localhost:3001/posts', {
-    //             title: title,
-    //             body: body,
-    //             publish: publish,
-    //             createAt: Date.now(),
-    //         }).then(() => {
-    //             navigate('/admin');
-    //             addToast({type: "success", message: '포스팅이 완료되었습니다.'});
-    //         }).catch(err => {
-    //             addToast({type: 'err', message: "오류가 발생하였습니다."})
-    //         });
-    //     }
-    // }
     const submit = (e) => {
         e.preventDefault();
 

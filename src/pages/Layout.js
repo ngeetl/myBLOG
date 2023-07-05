@@ -10,7 +10,7 @@ const Layout = () => {
   const { addToast } = useToast();
   const activeStyle = ({ isActive }) => {
     return {
-      color: isActive ? "rgb(255, 225, 76)" : "rgb(222, 232, 246)"
+      color: isActive ? "rgb(255, 225, 70)" : "rgb(222, 232, 246)"
     }
   }
 
@@ -34,9 +34,9 @@ const Layout = () => {
       <div className='nav_bar'>
         <h1><Link to="/">myBLOG</Link></h1>
         <div className='nav'>
-          <div><NavLink style={activeStyle} to="/blog">BLOG</NavLink></div>
-          {isLogin && <div><NavLink style={activeStyle} to="/board">BOARD</NavLink></div>}
-          {isLogin && <div><NavLink style={activeStyle} to="/admin">MY</NavLink></div>}
+          <div><NavLink style={activeStyle} to="/blog" className='nav_link'>BLOG</NavLink></div>
+          {isLogin && <div><NavLink style={activeStyle} to="/board" className='nav_link'>BOARD</NavLink></div>}
+          {isLogin && <div><NavLink style={activeStyle} to="/admin" className='nav_link'>MY</NavLink></div>}
           <div>
             <button 
               className='login'

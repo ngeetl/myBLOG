@@ -12,6 +12,10 @@ export default [
     component: <Home/>,
   },
   {
+    path: "/myBLOG",
+    component: <Home/>,
+  },
+  {
     path: "/board",
     component: <Board/>,
     auth: true

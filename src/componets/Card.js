@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 
 const Card = ({ post, editHandler, children }) => {
     const printDate = (timeStamp) => {
@@ -11,8 +10,8 @@ const Card = ({ post, editHandler, children }) => {
         editHandler();
     }}>
         <div className='card'>
-            <div>제목 : {post.title}</div>
-            <div>내용 : {post.body}</div>
+            <div className='title'>제목 : {post.title}</div>
+            <div className='post'>내용 : {post.body}</div>
             <small>{post.newCreateAt ? printDate(post.newCreateAt) : printDate(post.createAt)}</small>
         </div>
         {children}

@@ -12,7 +12,7 @@ const Edit = () => {
     const [editTitle, setEditTitle] = useState('');
     const [editBody, setEditBody] = useState('');
     const [loading, setLoading] = useState(true);
-    const [publish, setPublish] = useState(false);
+    const [publish, setPublish] = useState(true);
     const [errMessage, setErrMessage] = useState('');
 
     const onChangeTitle = (e) => setEditTitle(e.target.value);
@@ -50,6 +50,7 @@ const Edit = () => {
                             setTitle(res.data.title + '-수정본');
                             setBody(res.data.body);
                             setLoading(false);
+                            setPublish(res.data.publish);
                         }).catch(err => {
                             setLoading(false);
                             setErrMessage("서버로부터 불러오는 것을 실패하였습니다.");

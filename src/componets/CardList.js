@@ -19,47 +19,18 @@ const CardList = ({ isAdmin }) => {
     const { addToast } = useToast();
 
     // post 불러오기 (GET)
-    // const getPosts = (page = 1) => {
-    //   setCurrentPage(page);
-
-    //   let params = {
-    //     _page: page,
-    //     _limit: limit,
-    //     _sort: 'id',
-    //     _order: 'desc',
-    //     title_like: searchText,
-    //   }
-    //   if(!isAdmin) {
-    //     params = {
-    //       ...params,
-    //       publish: true
-    //     }
-    //   }
-    //   axios.get('http://localhost:3100/posts', {
-    //     params: params
-    //   })
-    //   .then(res => {
-    //     setPosts(res.data);
-    //     setLoading(false);
-    //     setTotalPage(Math.ceil(res.headers['x-total-count']/limit));
-    //   }).catch(err => {
-    //     setErrMessage('서버로부터 불러오는 것을 실패하였습니다.');
-    //     addToast({
-    //       type: 'err',
-    //       message: "서버 접속 실패"
-    //     })
-    //     setLoading(false);
-    //   })
-    // }
-
     const getPosts = (page = 1) => {
       setCurrentPage(page);
-
       
-      axios.get(`http://localhost:3100/posts?page=${page}`)
+      axios.get('http://localhost:3100/posts', {
+        params: {
+          page: page,
+          search: searchText
+        }
+      })
       .then(res => {
-        const { totalPosts, paginatedPosts, publishPost } = res.data;
-        setPosts(paginatedPosts);
+        const { totalPosts, paginatedPosts, publishPost, searchPost } = res.data;
+        searchText ? setPosts(searchPost) : setPosts(paginatedPosts);
         setTotalPosts(totalPosts);
         setLoading(false);
         if(!isAdmin) {
@@ -89,6 +60,7 @@ const CardList = ({ isAdmin }) => {
 
     const deleteHandler = (e, id) => {
       e.stopPropagation();
+      window.confirm('삭제하시겠습니까?') &&
       axios.delete(`http://localhost:3100/posts/${id}`)
         .then(() => {
           getPosts(1);
@@ -136,16 +108,22 @@ const CardList = ({ isAdmin }) => {
     return (
       <>
         <div className='search center'>
-          <input 
-            className='search_bar'
-            type='text'
-            placeholder='search...'
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            onKeyUp={onSearch}/>
+          <div className='search_wrap'>
+            <input 
+              className='search_bar'
+              type='text'
+              placeholder='search...'
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              onKeyUp={onSearch}/>
+            <button onClick={() => getPosts()}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+              </svg>    
+            </button>
+          </div>
         </div>
         {renderList(posts)}
-        {/* {totalPage > 1 && <Pagination totalPage={totalPage} getPosts={getPosts} currentPage={currentPage}/>} */}
         {totalPosts > 0 && <Pagination totalPosts={totalPosts} getPosts={getPosts} currentPage={currentPage} />}
       </>
     )

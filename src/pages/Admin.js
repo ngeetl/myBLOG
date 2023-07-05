@@ -8,7 +8,7 @@ const Admin = () => {
         <div className='container'>
           <div className='card_header'>
             <h2>Blog List</h2>
-            <Link to="/board">+</Link>
+            <Link to="/board" className='add_post'>+</Link>
           </div>
           <CardList isAdmin={true}/> 
         </div>

@@ -16,7 +16,7 @@ Firebase, JSON Server, Express 세가지 버전으로 서버를 구축하면서 
 특히 Firebase를 사용하면서 라이브러리 없이 검색 기능을 구현하는 것에 한계와 데이터베이스의 중요성을 느꼈지만,
 이를 통해 기술 선택에 따른 장단점을 명확히 인식할 수 있었습니다.
 
-#### My BLOG 바로가기: [https://d3idixhyot0xmi.cloudfront.net](https://myblog-eb9db.web.app/)
+#### My BLOG 바로가기: https://myblog-eb9db.web.app/
 #### My BLOG - firebase 버전 저장소: https://github.com/ngeetl/myBlog-firebase
 #### My BLOG - express 서버 버전 저장소: https://github.com/ngeetl/myblog_server
 
